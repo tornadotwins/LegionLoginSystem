@@ -3,4 +3,6 @@ export interface SocialInterface {
   firstName?: string;
   lastName?: string;
   email?: string;
+  username?: string;
+  photo?: string;
 }

@@ -17,6 +17,8 @@ import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
 import { UsersService } from 'src/users/users.service';
 import { ForgotService } from 'src/forgot/forgot.service';
 import { MailService } from 'src/mail/mail.service';
+import { FileEntity } from '../files/entities/file.entity';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -110,6 +112,12 @@ export class AuthService {
       if (socialEmail && !userByEmail) {
         user.email = socialEmail;
       }
+
+      if (socialData.photo) {
+        user.photo = new FileEntity();
+        user.photo.path = socialData.photo;
+      }
+
       await this.usersService.update(user.id, user);
     } else if (userByEmail) {
       user = userByEmail;
@@ -121,7 +129,7 @@ export class AuthService {
         id: StatusEnum.active,
       });
 
-      user = await this.usersService.create({
+      const userForSave: CreateUserDto = {
         email: socialEmail,
         firstName: socialData.firstName,
         lastName: socialData.lastName,
@@ -129,7 +137,18 @@ export class AuthService {
         provider: authProvider,
         role,
         status,
-      });
+      };
+
+      if (socialData.photo) {
+        userForSave.photo = new FileEntity();
+        userForSave.photo.path = socialData.photo;
+      }
+
+      if (socialData.username) {
+        userForSave.username = socialData.username;
+      }
+
+      user = await this.usersService.create(userForSave);
 
       user = await this.usersService.findOne({
         id: user.id,

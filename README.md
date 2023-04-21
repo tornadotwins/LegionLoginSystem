@@ -37,7 +37,7 @@ NestJS REST API boilerplate for typical project
 ```bash
 git clone --depth 1 https://github.com/brocoders/nestjs-boilerplate.git my-app
 cd my-app/
-cp env-example .env
+cp .env.example .env
 docker compose up -d
 ```
 
@@ -52,7 +52,7 @@ docker compose logs
 ```bash
 git clone --depth 1 https://github.com/brocoders/nestjs-boilerplate.git my-app
 cd my-app/
-cp env-example .env
+cp .env.example .env
 ```
 
 Change `DATABASE_HOST=postgres` to `DATABASE_HOST=localhost`
@@ -130,7 +130,7 @@ npm run test:e2e
 ## Tests in Docker
 
 ```bash
-docker compose -f docker-compose.ci.yaml --env-file env-example -p ci up --build --exit-code-from api && docker compose -p ci rm -svf
+docker compose -f docker-compose.ci.yaml --env-file .env.example -p ci up --build --exit-code-from api && docker compose -p ci rm -svf
 ```
 
 ## Test benchmarking

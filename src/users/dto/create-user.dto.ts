@@ -39,11 +39,13 @@ export class CreateUserDto {
   @IsNotEmpty()
   lastName: string | null;
 
+  @ApiProperty({ example: 'Doe' })
+  @IsNotEmpty()
+  @IsOptional()
+  username?: string | null;
+
   @ApiProperty({ type: () => FileEntity })
   @IsOptional()
-  @Validate(IsExist, ['FileEntity', 'id'], {
-    message: 'imageNotExists',
-  })
   photo?: FileEntity | null;
 
   @ApiProperty({ type: Role })

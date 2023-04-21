@@ -58,16 +58,18 @@ export class User extends EntityHelper {
   @Expose({ groups: ['me', 'admin'] })
   socialId: string | null;
 
-  @Index()
   @Column({ nullable: true })
   firstName: string | null;
 
-  @Index()
   @Column({ nullable: true })
   lastName: string | null;
 
+  @Column({ nullable: true })
+  username: string | null;
+
   @ManyToOne(() => FileEntity, {
     eager: true,
+    cascade: true,
   })
   photo?: FileEntity | null;
 
