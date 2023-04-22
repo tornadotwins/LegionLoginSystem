@@ -24,7 +24,7 @@ export class AuthDiscordController {
     private authService: AuthService,
   ) {}
 
-  @Post('login')
+  @Post()
   @ApiCreatedResponse({
     description: 'The user has been created successfully',
     schema: {
